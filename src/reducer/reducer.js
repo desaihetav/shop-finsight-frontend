@@ -14,6 +14,49 @@ export const reducerFunc = (state, { type, payload }) => {
         };
       }
       return state;
+    case "ADD_QTY":
+      return {
+        ...state,
+        cartTotalOG: state.cartTotalOG + payload.price.original,
+        cartTotalFinal: state.cartTotalFinal + payload.price.final,
+        cart: state.cart.map((cartItem) =>
+          cartItem.id.isbn10 === payload.id.isbn10
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        ),
+      };
+    case "REMOVE_QTY":
+      return payload.quantity > 1
+        ? {
+            ...state,
+            cartTotalOG: state.cartTotalOG - payload.price.original,
+            cartTotalFinal: state.cartTotalFinal - payload.price.final,
+            cart: state.cart.map((cartItem) =>
+              cartItem.id.isbn10 === payload.id.isbn10
+                ? { ...cartItem, quantity: cartItem.quantity - 1 }
+                : cartItem
+            ),
+          }
+        : {
+            ...state,
+            cartTotalOG: state.cartTotalOG - payload.price.original,
+            cartTotalFinal: state.cartTotalFinal - payload.price.final,
+            cart: state.cart.filter(
+              (cartItem) => cartItem.id.isbn10 !== payload.id.isbn10
+            ),
+          };
+    case "ADD_TO_WISHLIST":
+      return {
+        ...state,
+        wishlist: [...state.wishlist, payload],
+      };
+    case "REMOVE_FROM_WISHLIST":
+      return {
+        ...state,
+        wishlist: state.wishlist.filter(
+          (wishItem) => wishItem.id.isbn10 !== payload.id.isbn10
+        ),
+      };
     default:
       return state;
   }

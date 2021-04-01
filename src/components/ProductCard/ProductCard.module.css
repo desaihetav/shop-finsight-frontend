@@ -8,6 +8,20 @@
 
 @media screen and (max-width: 640px) {
   .cardImage {
-    max-height: 16rem;
+    max-height: 14rem;
+    max-width: 8.75rem;
   }
+}
+
+.arrowIcon,
+.bagIcon {
+  transition: transform 0.35s ease;
+}
+
+.button:hover > .bagIcon {
+  transform: translateY(-0.25rem);
+}
+
+.button:hover > .arrowIcon {
+  transform: translateX(0.5rem);
 }

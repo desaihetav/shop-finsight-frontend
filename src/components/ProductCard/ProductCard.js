@@ -1,5 +1,6 @@
 import styles from "./ProductCard.module.css";
 import { useData } from "../../context/DataContext";
+import { useHistory } from "react-router-dom";
 
 export default function ProductCard({ product }) {
   const {
@@ -10,16 +11,40 @@ export default function ProductCard({ product }) {
     price,
     no_of_rating,
   } = product;
-  const { dispatch } = useData();
+  const { cart, wishlist, dispatch } = useData();
+  const history = useHistory();
 
-  const btnHandler = (productItem) => {
-    dispatch({ type: "ADD_TO_CART", payload: productItem });
+  const isInCart = () =>
+    cart.find((cartItem) => cartItem.id.isbn10 === product.id.isbn10);
+
+  const isInWishlist = () =>
+    wishlist.filter((wishItem) => wishItem.id.isbn10 === product.id.isbn10)
+      .length;
+
+  const toggleWishlist = () => {
+    isInWishlist()
+      ? dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product })
+      : dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+  };
+
+  const cartBtnHandler = () => {
+    isInCart()
+      ? history.push({ pathname: "/cart" })
+      : dispatch({ type: "ADD_TO_CART", payload: product });
   };
 
   return (
     <div class="card">
       <img alt="" src={coverURL} class={`${styles.cardImage}`} />
       <div class="card-content">
+        <button
+          onClick={toggleWishlist}
+          className="btn btn-ghost btn-icon absolute top-0 right-0"
+        >
+          <span class={`material-icons-outlined`}>
+            {isInWishlist() ? "bookmark" : "bookmark_border"}
+          </span>
+        </button>
         <p class="card-subtitle">{authors[0].name}</p>
         <h3 class="card-title">{title}</h3>
         <div class="row">
@@ -42,21 +67,35 @@ export default function ProductCard({ product }) {
           <span class="card-reviews">{no_of_rating} reviews</span>
         </div>
         <div class="row">
-          <span class="card-price">Rs. {price.original * 0.5}/-</span>
+          <span class="card-price">Rs. {price.final}/-</span>
           <div class="space-x-1"></div>
           <span class="card-price-original">Rs. {price.original}/-</span>
         </div>
         <p class="card-description">{description}</p>
         <div class="row w-full mt-4">
           <button
-            onClick={() => btnHandler(product)}
-            className="btn btn-outlined ml-auto"
+            onClick={() => cartBtnHandler()}
+            className={`btn btn-outlined btn-small ml-auto ${styles.button}`}
           >
-            <span class="material-icons-outlined btn-icon-left">
-              {" "}
-              shopping_bag{" "}
-            </span>
-            Add to Bag
+            {!isInCart() && (
+              <span
+                class={`material-icons-outlined btn-icon-left ${styles.bagIcon}`}
+              >
+                {" "}
+                shopping_bag{" "}
+              </span>
+            )}
+            {isInCart() ? "Go to Bag" : "Add to Bag"}
+            {isInCart() ? (
+              <span
+                class={`material-icons-outlined btn-icon-right ${styles.arrowIcon}`}
+              >
+                {" "}
+                east{" "}
+              </span>
+            ) : (
+              ""
+            )}
           </button>
         </div>
       </div>

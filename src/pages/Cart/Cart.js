@@ -6,7 +6,9 @@ export default function Cart() {
   return (
     <div>
       <h1>Cart Page</h1>
-      {cart && cart.map((cartItem) => <CartCard item={cartItem} />)}
+      <div className={`grid`}>
+        {cart && cart.map((cartItem) => <CartCard item={cartItem} />)}
+      </div>
     </div>
   );
 }
