@@ -1,0 +1,11 @@
+.subTotal {
+  font-size: 1.25rem;
+}
+
+.arrowIcon {
+  transition: transform 0.35s ease;
+}
+
+.checkoutBtn:hover > .arrowIcon {
+  transform: translateX(0.5rem);
+}

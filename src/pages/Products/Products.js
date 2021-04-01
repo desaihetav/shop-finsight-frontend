@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { ProductCard } from "../../components";
+import { ProductCard, Navbar } from "../../components";
 import { useData } from "../../context/DataContext";
 import axios from "axios";
 import faker from "faker";
@@ -38,14 +37,14 @@ export default function Products() {
 
   return (
     <div>
-      <h1>Products Page</h1>
-      <Link to="/cart">Cart</Link>
-      <br />
-      <Link to="/wishlist">Wishlist</Link>
-      <div className={`grid px-4`}>
-        {products.map((productItem) => (
-          <ProductCard product={productItem} />
-        ))}
+      <Navbar />
+      <div className="container">
+        <h1 className="mt-8">All Products</h1>
+        <div className={`grid`}>
+          {products.map((productItem) => (
+            <ProductCard product={productItem} />
+          ))}
+        </div>
       </div>
     </div>
   );

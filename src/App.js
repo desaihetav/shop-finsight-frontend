@@ -7,9 +7,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/products">
+        {/* <Route exact path="/products">
           <Products />
-        </Route>
+        </Route> */}
         <Route exact path="/cart">
           <Cart />
         </Route>
@@ -17,7 +17,7 @@ function App() {
           <Wishlist />
         </Route>
         <Route exact path="/">
-          <Home />
+          <Products />
         </Route>
       </Switch>
     </Router>

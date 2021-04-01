@@ -12,7 +12,8 @@ export function DataProvider({ children }) {
       value={{
         products: state.products,
         cart: state.cart,
-        cartTotal: state.cartTotal,
+        cartTotalOG: state.cartTotalOG,
+        cartTotalFinal: state.cartTotalFinal,
         wishlist: state.wishlist,
         dispatch,
       }}

@@ -1,13 +1,35 @@
 import { useData } from "../../context/DataContext";
-import { CartCard } from "../../components";
+import { CartCard, Navbar } from "../../components";
+import styles from "./Cart.module.css";
 
 export default function Cart() {
   const { cart, cartTotalOG, cartTotalFinal, dispatch } = useData();
+  console.log({ cartTotalOG });
   return (
     <div>
-      <h1>Cart Page</h1>
-      <div className={`grid`}>
-        {cart && cart.map((cartItem) => <CartCard item={cartItem} />)}
+      <Navbar />
+      <div className="container">
+        <h1 className="mt-8">Cart</h1>
+        <div className={`grid`}>
+          {cart && cart.map((cartItem) => <CartCard item={cartItem} />)}
+        </div>
+        <div className="divider"></div>
+        <div className="row mt-8">
+          <span className={`${styles.subTotal}`}>
+            TOTAL: <strong>Rs. {cartTotalFinal} /-</strong>
+          </span>
+          <button
+            className={`ml-auto btn btn-solid btn-large ${styles.checkoutBtn}`}
+          >
+            Proceed to checkout
+            <span
+              class={`material-icons-outlined btn-icon-right ${styles.arrowIcon}`}
+            >
+              {" "}
+              east{" "}
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );
