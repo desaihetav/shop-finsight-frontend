@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ProductCard } from "../../components";
 import { useData } from "../../context/DataContext";
 import axios from "axios";
@@ -31,6 +32,7 @@ export default function Products() {
   return (
     <div>
       <h1>Products Page</h1>
+      <Link to="/cart">Cart</Link>
       <div className={`${styles.productsContainer} grid`}>
         {products.map((productItem) => (
           <ProductCard product={productItem} />

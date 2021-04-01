@@ -1,20 +1,8 @@
-import styles from "./ProductCard.module.css";
+import styles from "./CartCard.module.css";
 import { useData } from "../../context/DataContext";
 
-export default function ProductCard({ product }) {
-  const {
-    title,
-    description,
-    authors,
-    coverURL,
-    price,
-    no_of_rating,
-  } = product;
-  const { dispatch } = useData();
-
-  const btnHandler = (productItem) => {
-    dispatch({ type: "ADD_TO_CART", payload: productItem });
-  };
+export default function CartCard({ item }) {
+  const { title, description, authors, coverURL, price, no_of_rating } = item;
 
   return (
     <div class="card">
@@ -47,11 +35,9 @@ export default function ProductCard({ product }) {
           <span class="card-price-original">Rs. {price.original}/-</span>
         </div>
         <p class="card-description">{description}</p>
-        <div class="row w-full mt-4">
-          <button
-            onClick={() => btnHandler(product)}
-            className="btn btn-outlined ml-auto"
-          >
+        <div class="row w-full">
+          {/* <button className="btn btn-solid mt-8">Add to Cart</button> */}
+          <button className="btn btn-outlined mt-4 ml-auto">
             <span class="material-icons-outlined btn-icon-left">
               {" "}
               shopping_bag{" "}
