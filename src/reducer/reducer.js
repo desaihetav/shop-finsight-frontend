@@ -57,6 +57,22 @@ export const reducerFunc = (state, { type, payload }) => {
           (wishItem) => wishItem.id.isbn10 !== payload.id.isbn10
         ),
       };
+    case "TOGGLE_COD":
+      return (state = {
+        ...state,
+        showCashOnDeliveryOnly: !state.showCashOnDeliveryOnly,
+      });
+
+    case "TOGGLE_FAST_DELIVERY":
+      return (state = {
+        ...state,
+        showFastDeliveryOnly: !state.showFastDeliveryOnly,
+      });
+    case "SORT":
+      return {
+        ...state,
+        sortParameter: payload,
+      };
     default:
       return state;
   }
@@ -68,4 +84,8 @@ export const initialState = {
   cartTotalOG: 0,
   cartTotalFinal: 0,
   wishlist: [],
+  showOutOfStock: false,
+  showCashOnDeliveryOnly: false,
+  showFastDeliveryOnly: true,
+  sortParameter: null,
 };

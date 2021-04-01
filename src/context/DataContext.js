@@ -15,6 +15,9 @@ export function DataProvider({ children }) {
         cartTotalOG: state.cartTotalOG,
         cartTotalFinal: state.cartTotalFinal,
         wishlist: state.wishlist,
+        showFastDeliveryOnly: state.showFastDeliveryOnly,
+        showCashOnDeliveryOnly: state.showCashOnDeliveryOnly,
+        sortParameter: state.sortParameter,
         dispatch,
       }}
     >
