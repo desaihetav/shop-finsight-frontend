@@ -14,13 +14,11 @@ export default function Cart() {
           {cart && cart.map((cartItem) => <CartCard item={cartItem} />)}
         </div>
         <div className="divider"></div>
-        <div className="row mt-8">
+        <div className="grid mt-8">
           <span className={`${styles.subTotal}`}>
             TOTAL: <strong>Rs. {cartTotalFinal} /-</strong>
           </span>
-          <button
-            className={`ml-auto btn btn-solid btn-large ${styles.checkoutBtn}`}
-          >
+          <button className={`btn btn-solid btn-large ${styles.checkoutBtn}`}>
             Proceed to checkout
             <span
               class={`material-icons-outlined btn-icon-right ${styles.arrowIcon}`}

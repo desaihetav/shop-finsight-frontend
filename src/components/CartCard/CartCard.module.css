@@ -8,6 +8,7 @@
 
 @media screen and (max-width: 640px) {
   .cardImage {
-    max-height: 16rem;
+    max-height: 14rem;
+    max-width: 8.75rem;
   }
 }
