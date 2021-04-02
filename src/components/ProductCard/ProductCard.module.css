@@ -13,6 +13,13 @@
   }
 }
 
+.arrowIcon {
+  display: block;
+  width: 1.5rem;
+  height: 1rem;
+  background: url("../../assets/images/right_arrow_dark.svg") no-repeat center;
+}
+
 .arrowIcon,
 .bagIcon {
   transition: transform 0.35s ease;
@@ -24,4 +31,10 @@
 
 .button:hover > .arrowIcon {
   transform: translateX(0.5rem);
+  background: url("../../assets/images/right_arrow_light.svg") no-repeat center;
+}
+
+.button:focus > .arrowIcon {
+  transform: translateX(0.5rem);
+  background: url("../../assets/images/right_arrow_dark.svg") no-repeat center;
 }

@@ -1,6 +1,7 @@
 import styles from "./ProductCard.module.css";
 import { useData } from "../../context/DataContext";
 import { useHistory } from "react-router-dom";
+import rightArrow from "../../assets/images/right_arrow.svg";
 
 export default function ProductCard({ product }) {
   const {
@@ -87,12 +88,9 @@ export default function ProductCard({ product }) {
             )}
             {isInCart() ? "Go to Bag" : "Add to Bag"}
             {isInCart() ? (
-              <span
-                class={`material-icons-outlined btn-icon-right ${styles.arrowIcon}`}
-              >
-                {" "}
-                east{" "}
-              </span>
+              <div
+                className={`material-icons-outlined btn-icon-right ${styles.arrowIcon}`}
+              ></div>
             ) : (
               ""
             )}
