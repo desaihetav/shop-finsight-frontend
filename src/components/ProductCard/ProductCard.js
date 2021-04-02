@@ -39,7 +39,7 @@ export default function ProductCard({ product }) {
       <div class="card-content">
         <button
           onClick={toggleWishlist}
-          className="btn btn-ghost btn-icon absolute top-0 right-0"
+          className="card-badge card-badge-secondary btn btn-icon absolute top-0 right-0"
         >
           <span class={`material-icons-outlined`}>
             {isInWishlist() ? "bookmark" : "bookmark_border"}

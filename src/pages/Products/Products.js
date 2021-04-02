@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ProductCard, Navbar } from "../../components";
 import { useData } from "../../context/DataContext";
 import axios from "axios";
@@ -14,7 +14,7 @@ export default function Products() {
     dispatch,
   } = useData();
 
-  console.log({ showFastDeliveryOnly });
+  const [showFilters, setShowFilters] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -71,13 +71,27 @@ export default function Products() {
     showCashOnDeliveryOnly,
   });
 
+  const toggleShowFilter = () => setShowFilters((val) => !val);
+
   return (
     <div>
       <Navbar />
       <div className="container">
-        <h1 className="mt-8">All Products</h1>
-        <div className="grid">
-          <div className={`w-full`}>
+        <div className="row items-center justify-between">
+          <h1 className="mt-8">All Products</h1>
+          <button
+            className="btn btn-icon btn-ghost btn-small"
+            onClick={() => toggleShowFilter()}
+          >
+            <span className="material-icons-outlined">filter_alt</span>
+          </button>
+        </div>
+        <div
+          className={`grid ${styles.filterContainer} ${
+            showFilters || styles.hideFilters
+          }`}
+        >
+          <div className={`w-full p-4`}>
             <span className={`${styles.label}`}>Sort by: </span>
             <br />
             <br />
@@ -110,7 +124,7 @@ export default function Products() {
               </button>
             </div>
           </div>
-          <div className={`w-full`}>
+          <div className={`w-full p-4`}>
             <span className={`${styles.label}`}>Filters: </span>
             <br />
             <br />

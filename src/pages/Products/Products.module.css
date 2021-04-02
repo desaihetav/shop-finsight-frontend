@@ -9,3 +9,17 @@
 .label {
   font-size: 1rem;
 }
+
+.filterContainer {
+  overflow: hidden;
+  max-height: 20rem;
+  opacity: 1;
+  background-color: var(--color-background-3);
+  transition: 0.5s ease;
+}
+
+.hideFilters {
+  max-height: 0;
+  opacity: 0;
+  margin: 0;
+}

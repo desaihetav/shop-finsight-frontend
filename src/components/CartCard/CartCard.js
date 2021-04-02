@@ -12,9 +12,9 @@ export default function CartCard({ item }) {
         <p class="card-subtitle">{authors[0].name}</p>
         <h3 class="card-title">{title}</h3>
         <div class="row"></div>
-        {/* <p class="card-description">{description}</p> */}
+        <p class="card-description">{description}</p>
 
-        <div class="row wrap w-full mt-4 items-center">
+        <div class="row wrap w-full items-center">
           <span class="card-title">Rs. {price.final * quantity}/-</span>
           <div class="row ml-auto">
             <button
