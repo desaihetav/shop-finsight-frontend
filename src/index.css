@@ -1,12 +1,13 @@
-@import url("https://csshd.netlify.app/styles/index.css");
-/* @import url("http://127.0.0.1:5500/styles/index.css"); */
+/* @import url("https://csshd.netlify.app/styles/index.css"); */
+@import url("http://127.0.0.1:5500/styles/index.css");
 
 body {
   margin: 0 auto;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-background-2);
+  background-color: var(--color-background-3);
+  color: var(--color-text-1);
 }
 
 code {

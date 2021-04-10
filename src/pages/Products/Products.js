@@ -87,7 +87,7 @@ export default function Products() {
           </button>
         </div>
         <div
-          className={`grid ${styles.filterContainer} ${
+          className={`${styles.filterContainer} ${
             showFilters || styles.hideFilters
           }`}
         >

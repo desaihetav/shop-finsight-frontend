@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   height: 4rem;
-  background-color: var(--color-primary-base);
-  color: white;
+  background-color: var(--color-text-1);
+  color: var(--color-background-3);
 }
 
 .logoContainer {
@@ -27,6 +27,10 @@
   font-weight: 700;
   font-size: 1rem;
   margin-top: 0.25rem;
+}
+
+.bookmarkBadge {
+  color: var(--color-text-1);
 }
 
 .navIcon {

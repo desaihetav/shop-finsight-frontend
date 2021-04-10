@@ -22,7 +22,9 @@ export default function Navbar() {
               <span class={`material-icons-outlined ${styles.navIcon}`}>
                 bookmark_border
               </span>
-              <div class={`icon-badge icon-badge-dark`}>{wishlist.length}</div>
+              <div class={`icon-badge ${styles.bookmarkBadge}`}>
+                {wishlist.length}
+              </div>
             </div>
           </Link>
           <div className="space-x-1"></div>
