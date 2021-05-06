@@ -1,7 +1,7 @@
 import { useData } from "../../context/DataContext";
 import { CartCard } from "../../components";
 import styles from "./Cart.module.css";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import rightArrow from "../../assets/images/right_arrow.svg";
 
 export default function Cart() {
@@ -11,7 +11,7 @@ export default function Cart() {
     <div>
       <div className="container">
         <h1 className="mt-8">Cart</h1>
-        {cart.length ? (
+        {cart?.length ? (
           <div className={`${styles.cartPage} mt-8`}>
             <div className={`${styles.cartListContainer}`}>
               {cart && cart.map((cartItem) => <CartCard item={cartItem} />)}
@@ -35,7 +35,9 @@ export default function Cart() {
                     className={`${styles.subTotal} w-full row justify-between`}
                   >
                     <strong>TOTAL:</strong>
-                    <strong>₹ {parseFloat(cartTotalFinal + 20).toFixed(2)}</strong>
+                    <strong>
+                      ₹ {parseFloat(cartTotalFinal + 20).toFixed(2)}
+                    </strong>
                   </div>
                 </div>
                 <div className="space-y-1"></div>
@@ -61,13 +63,13 @@ export default function Cart() {
 }
 
 function EmptyCart() {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col h-full items-center">
       <h2>Your cart is empty</h2>
       <button
         className={`btn btn-solid btn-large mt-8 ${styles.checkoutBtn}`}
-        onClick={() => history.push({ pathname: "/" })}
+        onClick={() => navigate("/")}
       >
         Start Shopping
         <img

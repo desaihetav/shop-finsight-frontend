@@ -38,3 +38,24 @@
   margin-right: 0.25rem;
   font-size: 1.5rem;
 }
+
+.modalOuter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modalInner {
+  background-color: var(--color-background-2);
+  color: var(--color-text-1);
+  margin: 0 1rem;
+  padding: 1rem 2rem;
+  max-width: 40rem;
+}

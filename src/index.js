@@ -2,13 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { DataProvider } from "./context/DataContext";
+import { DataProvider, AuthProvider } from "./context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataProvider>
-      <App />
-    </DataProvider>
+    <AuthProvider>
+      <DataProvider>
+        <App />
+      </DataProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

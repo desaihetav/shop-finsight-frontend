@@ -1,33 +1,76 @@
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useData } from "../../context/DataContext";
 import styles from "./ProductDetails.module.css";
 import { getDateInDisplayFormat } from "../../utils/date";
 import { ProductCard } from "../../components";
+import { useAuth } from "../../context";
+import axios from "axios";
 
 export default function ProductDetails() {
   const { productId } = useParams();
   const { products } = useData();
   const product = products.find((product) => product._id === productId);
   const genres = product && product.genres.map((genre) => genre.name);
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const { cart, wishlist, dispatch } = useData();
-  const history = useHistory();
 
   const isInCart = () => cart.find((cartItem) => cartItem._id === product._id);
 
   const isInWishlist = () =>
     wishlist.filter((wishItem) => wishItem._id === product._id).length;
 
-  const toggleWishlist = () => {
-    isInWishlist()
-      ? dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product })
-      : dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+  const toggleWishlist = async (e) => {
+    e.preventDefault();
+    if (isInWishlist()) {
+      console.log("removing");
+      try {
+        const response = await axios.post(
+          `https://shop-finsight.desaihetav.repl.co/wishlist/${user._id}/${product.id}`,
+          {
+            type: "REMOVE",
+          }
+        );
+        dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("adding");
+      try {
+        const response = await axios.post(
+          `https://shop-finsight.desaihetav.repl.co/wishlist/${user._id}/${product.id}`,
+          {
+            type: "ADD",
+          }
+        );
+        dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
-  const cartBtnHandler = () => {
-    isInCart()
-      ? history.push({ pathname: "/cart" })
-      : dispatch({ type: "ADD_TO_CART", payload: product });
+  const cartBtnHandler = async (e) => {
+    e.preventDefault();
+    if (isInCart()) {
+      navigate("/cart");
+    } else {
+      try {
+        const response = await axios.post(
+          "https://shop-finsight.desaihetav.repl.co/cart",
+          {
+            owner: user._id,
+            product: product.id,
+            quantity: 1,
+          }
+        );
+        dispatch({ type: "ADD_TO_CART", payload: product });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -61,7 +104,7 @@ export default function ProductDetails() {
               </div>
               <div className={`flex w-full`}>
                 <button
-                  onClick={cartBtnHandler}
+                  onClick={(e) => cartBtnHandler(e)}
                   className={`btn btn-solid w-full ${styles.button}`}
                 >
                   {isInCart() ? (
@@ -85,7 +128,7 @@ export default function ProductDetails() {
                   )}
                 </button>
                 <button
-                  onClick={toggleWishlist}
+                  onClick={(e) => toggleWishlist(e)}
                   className="btn btn-outlined btn-icon"
                 >
                   <span className={`material-icons`}>

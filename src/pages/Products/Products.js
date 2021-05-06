@@ -18,12 +18,20 @@ export default function Products() {
     console.log({ sortParameter });
     if (sortParameter === "PRICE_HIGH_TO_LOW") {
       console.log("PRICE_HIGH_TO_LOW");
-      return [...products].sort((a, b) => b.price.final - a.price.final);
+      return [...products].sort((a, b) => {
+        const bfinal = b.price - (b.price * b.discount) / 100;
+        const afinal = a.price - (a.price * a.discount) / 100;
+        return bfinal - afinal;
+      });
     }
 
     if (sortParameter === "PRICE_LOW_TO_HIGH") {
       console.log("PRICE_LOW_TO_HIGH");
-      return [...products].sort((a, b) => a.price.final - b.price.final);
+      return [...products].sort((a, b) => {
+        const bfinal = b.price - (b.price * b.discount) / 100;
+        const afinal = a.price - (a.price * a.discount) / 100;
+        return afinal - bfinal;
+      });
     }
     return products;
   }
@@ -33,11 +41,11 @@ export default function Products() {
     { showFastDeliveryOnly, showCashOnDeliveryOnly }
   ) {
     return products
-      .filter(({ hasFastDelivery }) =>
-        showFastDeliveryOnly ? hasFastDelivery : true
+      .filter(({ has_fast_delivery }) =>
+        showFastDeliveryOnly ? has_fast_delivery : true
       )
-      .filter(({ hasCashOnDelivery }) =>
-        showCashOnDeliveryOnly ? hasCashOnDelivery : true
+      .filter(({ has_pay_on_delivery }) =>
+        showCashOnDeliveryOnly ? has_pay_on_delivery : true
       );
   }
 

@@ -1,6 +1,8 @@
 import styles from "./ProductCard.module.css";
 import { useData } from "../../context/DataContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
 
 export default function ProductCard({ product }) {
   const {
@@ -15,23 +17,63 @@ export default function ProductCard({ product }) {
     _id: id,
   } = product;
   const { cart, wishlist, dispatch } = useData();
-  const history = useHistory();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  const isInCart = cart.find((cartItem) => cartItem._id === product._id);
+  const isInCart = cart?.find((cartItem) => cartItem._id === product._id);
 
   const isInWishlist = () =>
-    wishlist.filter((wishItem) => wishItem._id === product._id).length;
-
-  const toggleWishlist = () => {
-    isInWishlist()
-      ? dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product })
-      : dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+    wishlist?.filter((wishItem) => wishItem._id === product._id).length;
+  const toggleWishlist = async (e) => {
+    e.preventDefault();
+    if (isInWishlist()) {
+      console.log("removing");
+      try {
+        const response = await axios.post(
+          `https://shop-finsight.desaihetav.repl.co/wishlist/${user._id}/${id}`,
+          {
+            type: "REMOVE",
+          }
+        );
+        dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("adding");
+      try {
+        const response = await axios.post(
+          `https://shop-finsight.desaihetav.repl.co/wishlist/${user._id}/${id}`,
+          {
+            type: "ADD",
+          }
+        );
+        dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
-  const cartBtnHandler = () => {
-    isInCart
-      ? history.push({ pathname: "/cart" })
-      : dispatch({ type: "ADD_TO_CART", payload: product });
+  const cartBtnHandler = async (e) => {
+    e.preventDefault();
+    if (isInCart) {
+      navigate("/cart");
+    } else {
+      try {
+        const response = await axios.post(
+          "https://shop-finsight.desaihetav.repl.co/cart",
+          {
+            owner: user._id,
+            product: id,
+            quantity: 1,
+          }
+        );
+        dispatch({ type: "ADD_TO_CART", payload: product });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -70,7 +112,7 @@ export default function ProductCard({ product }) {
           <p className="card-description">{description}</p>
           <div className="flex items-center justify-end w-full mt-4">
             <button
-              onClick={toggleWishlist}
+              onClick={(e) => toggleWishlist(e)}
               className="btn btn-outlined btn-small btn-icon"
             >
               <span className={`material-icons-outlined`}>
@@ -78,7 +120,7 @@ export default function ProductCard({ product }) {
               </span>
             </button>
             <button
-              onClick={() => cartBtnHandler()}
+              onClick={(e) => cartBtnHandler(e)}
               className={`btn btn-solid btn-small ml-auto ${styles.button}`}
             >
               {!isInCart && (
