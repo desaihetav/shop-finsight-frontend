@@ -86,6 +86,6 @@ export const initialState = {
   wishlist: [],
   showOutOfStock: false,
   showCashOnDeliveryOnly: false,
-  showFastDeliveryOnly: true,
+  showFastDeliveryOnly: false,
   sortParameter: null,
 };

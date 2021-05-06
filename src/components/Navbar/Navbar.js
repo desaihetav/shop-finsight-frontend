@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import logoWhite from "../../assets/images/logo_white.svg";
 import { useData } from "../../context/DataContext";
 
 export default function Navbar() {
@@ -19,10 +18,10 @@ export default function Navbar() {
         <div className="row ml-auto">
           <Link to="/wishlist">
             <div className="icon-badge-stack">
-              <span class={`material-icons-outlined ${styles.navIcon}`}>
+              <span className={`material-icons-outlined ${styles.navIcon}`}>
                 bookmark_border
               </span>
-              <div class={`icon-badge ${styles.bookmarkBadge}`}>
+              <div className={`icon-badge ${styles.bookmarkBadge}`}>
                 {wishlist.length}
               </div>
             </div>
@@ -32,12 +31,12 @@ export default function Navbar() {
           <Link className="row" to="/cart">
             <div className="icon-badge-stack">
               <span
-                class={`material-icons-outlined ${styles.cartIcon} ${styles.navIcon}`}
+                className={`material-icons-outlined ${styles.cartIcon} ${styles.navIcon}`}
               >
                 shopping_bag
               </span>
             </div>
-            <div class={`${styles.iconBadge}`}>{cart.length}</div>
+            <div className={`${styles.iconBadge}`}>{cart.length}</div>
           </Link>
         </div>
       </div>

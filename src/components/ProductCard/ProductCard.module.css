@@ -16,8 +16,8 @@
 .arrowIcon {
   display: block;
   width: 1.5rem;
-  height: 1rem;
-  background: url("../../assets/images/right_arrow_dark.svg") no-repeat center;
+  height: 1.5rem;
+  background: url("../../assets/images/right_arrow_light.svg") no-repeat center;
 }
 
 .arrowIcon,
@@ -29,16 +29,7 @@
   transform: translateY(-0.25rem);
 }
 
-.button:hover > .arrowIcon {
-  transform: translateX(0.5rem);
-  background: url("../../assets/images/right_arrow_light.svg") no-repeat center;
-}
-
-.button:focus > .arrowIcon {
-  background: url("../../assets/images/right_arrow_dark.svg") no-repeat center;
-}
-
+.button:hover > .arrowIcon,
 .button:focus:hover > .arrowIcon {
   transform: translateX(0.5rem);
-  background: url("../../assets/images/right_arrow_light.svg") no-repeat center;
 }
