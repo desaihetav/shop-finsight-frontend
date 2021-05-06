@@ -7,7 +7,6 @@ import rightArrow from "../../assets/images/right_arrow.svg";
 export default function Cart() {
   const { cart, cartTotalOG, cartTotalFinal } = useData();
 
-  console.log({ cartTotalOG });
   return (
     <div>
       <div className="container">
@@ -22,7 +21,7 @@ export default function Cart() {
                 <div className="flex flex-col w-full">
                   <div className={`w-full row justify-between`}>
                     <span>SUBTOTAL:</span>
-                    <span>₹ {cartTotalFinal}</span>
+                    <span>₹ {parseFloat(cartTotalFinal).toFixed(2)}</span>
                   </div>
                   <div className="space-y-1"></div>
                   <div className={`w-full row justify-between`}>
@@ -36,7 +35,7 @@ export default function Cart() {
                     className={`${styles.subTotal} w-full row justify-between`}
                   >
                     <strong>TOTAL:</strong>
-                    <strong>₹ {cartTotalFinal + 20}</strong>
+                    <strong>₹ {parseFloat(cartTotalFinal + 20).toFixed(2)}</strong>
                   </div>
                 </div>
                 <div className="space-y-1"></div>

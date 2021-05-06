@@ -14,9 +14,10 @@ function App() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://shop-finsight-default-rtdb.firebaseio.com/products.json"
+        // "https://shop-finsight-default-rtdb.firebaseio.com/products.json"
+        "https://shop-finsight.desaihetav.repl.co/products"
       );
-      dispatch({ type: "INITIALIZE_PRODUCTS", payload: response.data });
+      dispatch({ type: "INITIALIZE_PRODUCTS", payload: response.data.products });
     } catch (err) {
       console.log(err);
     }

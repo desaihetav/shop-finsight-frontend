@@ -4,12 +4,12 @@ export const reducerFunc = (state, { type, payload }) => {
       return { ...state, products: payload };
     case "ADD_TO_CART":
       if (
-        !state.cart.find((cartItem) => cartItem.id.isbn10 === payload.id.isbn10)
+        !state.cart.find((cartItem) => cartItem._id === payload._id)
       ) {
         return {
           ...state,
-          cartTotalOG: state.cartTotalOG + payload.price.original,
-          cartTotalFinal: state.cartTotalFinal + payload.price.final,
+          cartTotalOG: state.cartTotalOG + payload.price,
+          cartTotalFinal: state.cartTotalFinal + (payload.price * (100 - payload.discount) / 100),
           cart: [...state.cart, { ...payload, quantity: 1 }],
         };
       }
@@ -17,10 +17,10 @@ export const reducerFunc = (state, { type, payload }) => {
     case "ADD_QTY":
       return {
         ...state,
-        cartTotalOG: state.cartTotalOG + payload.price.original,
-        cartTotalFinal: state.cartTotalFinal + payload.price.final,
+        cartTotalOG: state.cartTotalOG + payload.price,
+        cartTotalFinal: state.cartTotalFinal + (payload.price * (100 - payload.discount) / 100),
         cart: state.cart.map((cartItem) =>
-          cartItem.id.isbn10 === payload.id.isbn10
+          cartItem._id === payload._id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         ),
@@ -29,20 +29,20 @@ export const reducerFunc = (state, { type, payload }) => {
       return payload.quantity > 1
         ? {
             ...state,
-            cartTotalOG: state.cartTotalOG - payload.price.original,
-            cartTotalFinal: state.cartTotalFinal - payload.price.final,
+            cartTotalOG: state.cartTotalOG - payload.price,
+            cartTotalFinal: state.cartTotalFinal - (payload.price * (100 - payload.discount) / 100),
             cart: state.cart.map((cartItem) =>
-              cartItem.id.isbn10 === payload.id.isbn10
+              cartItem._id === payload._id
                 ? { ...cartItem, quantity: cartItem.quantity - 1 }
                 : cartItem
             ),
           }
         : {
             ...state,
-            cartTotalOG: state.cartTotalOG - payload.price.original,
-            cartTotalFinal: state.cartTotalFinal - payload.price.final,
+            cartTotalOG: state.cartTotalOG - payload.price,
+            cartTotalFinal: state.cartTotalFinal - (payload.price * (100 - payload.discount) / 100),
             cart: state.cart.filter(
-              (cartItem) => cartItem.id.isbn10 !== payload.id.isbn10
+              (cartItem) => cartItem._id !== payload._id
             ),
           };
     case "ADD_TO_WISHLIST":
@@ -54,7 +54,7 @@ export const reducerFunc = (state, { type, payload }) => {
       return {
         ...state,
         wishlist: state.wishlist.filter(
-          (wishItem) => wishItem.id.isbn10 !== payload.id.isbn10
+          (wishItem) => wishItem._id !== payload._id
         ),
       };
     case "TOGGLE_COD":

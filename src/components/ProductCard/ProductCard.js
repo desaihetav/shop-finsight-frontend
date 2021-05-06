@@ -4,24 +4,23 @@ import { Link, useHistory } from "react-router-dom";
 
 export default function ProductCard({ product }) {
   const {
-    title,
+    name,
     description,
     authors,
-    coverURL,
+    cover_url,
     price,
-    no_of_rating,
-    id: { isbn10 },
+    discount,
+    rating,
+    rating_count,
+    _id: id,
   } = product;
   const { cart, wishlist, dispatch } = useData();
   const history = useHistory();
 
-  const isInCart = cart.find(
-    (cartItem) => cartItem.id.isbn10 === product.id.isbn10
-  );
+  const isInCart = cart.find((cartItem) => cartItem._id === product._id);
 
   const isInWishlist = () =>
-    wishlist.filter((wishItem) => wishItem.id.isbn10 === product.id.isbn10)
-      .length;
+    wishlist.filter((wishItem) => wishItem._id === product._id).length;
 
   const toggleWishlist = () => {
     isInWishlist()
@@ -37,11 +36,11 @@ export default function ProductCard({ product }) {
 
   return (
     product && (
-      <Link to={`/product/${isbn10}`} className="card">
-        <img alt="" src={coverURL} className={`${styles.cardImage}`} />
+      <Link to={`/product/${id}`} className="card">
+        <img alt="" src={cover_url} className={`${styles.cardImage}`} />
         <div className="card-content">
           <p className="card-subtitle">{authors[0].name}</p>
-          <h3 className="card-title">{title}</h3>
+          <h3 className="card-title">{name}</h3>
           <div className="row">
             <span className="material-icons-round card-rating-yellow card-rating">
               star
@@ -59,12 +58,14 @@ export default function ProductCard({ product }) {
               star
             </span>
             <div className="space-x-1"></div>
-            <span className="card-reviews">{no_of_rating} reviews</span>
+            <span className="card-reviews">{rating_count} reviews</span>
           </div>
           <div className="row">
-            <span className="card-price">Rs. {price.final}/-</span>
+            <span className="card-price">
+              Rs. {price * (1 - discount / 100)}/-
+            </span>
             <div className="space-x-1"></div>
-            <span className="card-price-original">Rs. {price.original}/-</span>
+            <span className="card-price-original">Rs. {price}/-</span>
           </div>
           <p className="card-description">{description}</p>
           <div className="flex items-center justify-end w-full mt-4">

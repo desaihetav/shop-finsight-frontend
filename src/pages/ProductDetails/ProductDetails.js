@@ -1,23 +1,22 @@
 import { useParams, useHistory } from "react-router-dom";
 import { useData } from "../../context/DataContext";
 import styles from "./ProductDetails.module.css";
+import { getDateInDisplayFormat } from "../../utils/date";
 import { ProductCard } from "../../components";
 
 export default function ProductDetails() {
   const { productId } = useParams();
   const { products } = useData();
-  const product = products.find((product) => product.id.isbn10 === productId);
+  const product = products.find((product) => product._id === productId);
   const genres = product && product.genres.map((genre) => genre.name);
 
   const { cart, wishlist, dispatch } = useData();
   const history = useHistory();
 
-  const isInCart = () =>
-    cart.find((cartItem) => cartItem.id.isbn10 === product.id.isbn10);
+  const isInCart = () => cart.find((cartItem) => cartItem._id === product._id);
 
   const isInWishlist = () =>
-    wishlist.filter((wishItem) => wishItem.id.isbn10 === product.id.isbn10)
-      .length;
+    wishlist.filter((wishItem) => wishItem._id === product._id).length;
 
   const toggleWishlist = () => {
     isInWishlist()
@@ -40,24 +39,24 @@ export default function ProductDetails() {
               className={`flex items-center justify-center w-full ${styles.leftContainer}`}
             >
               <img
-                alt={`${product.title} Cover`}
-                src={product.coverURL}
+                alt={`${product.name} Cover`}
+                src={product.cover_url}
                 className={styles.coverImage}
               />
             </div>
             <div
               className={`flex flex-col w-full items-start justify-center ${styles.rightContainer}`}
             >
-              <h1 className={`${styles.title}`}>{product.title}</h1>
+              <h1 className={`${styles.title}`}>{product.name}</h1>
               <span className={`${styles.author}`}>
                 by {product.authors[0].name}
               </span>
               <div className="flex items-baseline">
                 <span className={`${styles.priceFinal}`}>
-                  ₹ {product.price.final}
+                  ₹ {(product.price * (100 - product.discount)) / 100}
                 </span>
                 <span className={`${styles.priceOriginal}`}>
-                  ₹ {product.price.final * 2}
+                  ₹ {product.price}
                 </span>
               </div>
               <div className={`flex w-full`}>
@@ -116,47 +115,46 @@ export default function ProductDetails() {
                 />
                 <DetailElement
                   title="Format"
-                  subtitle={`Papaerback, ${product.no_of_pages} pages`}
+                  subtitle={`Papaerback, ${product.page_count} pages`}
                 />
                 <DetailElement
                   title="Language"
-                  subtitle={product.languages[0].name}
+                  subtitle={product.languages[0]}
                 />
                 <DetailElement
                   title="Publication Date"
-                  subtitle={product.publish_date.slice(0, 10)}
+                  subtitle={getDateInDisplayFormat(product.publish_date)}
                 />
                 <DetailElement
                   title="Publisher"
-                  subtitle={product.publishers.name}
+                  subtitle={product.publisher.name}
                 />
                 <DetailElement
                   title="Publication City/Country"
-                  subtitle="Maharashtra, India"
+                  subtitle="India"
                 />
-                <DetailElement
-                  title="ISBN10"
-                  subtitle={product.id.isbn10.slice(0, 10)}
-                />
-                <DetailElement
-                  title="ISBN13"
-                  subtitle={product.id.isbn13.slice(0, 13)}
-                />
+                <DetailElement title="ISBN10" subtitle={product.isbn10} />
+                <DetailElement title="ISBN13" subtitle={product.isbn13} />
               </div>
             </div>
           </section>
           <section className={styles.similarProducts}>
             <h2>Similar Products</h2>
-            {products
-              .filter((productItem) => {
-                const tempGenres = productItem.genres.map(
-                  (genre) => genre.name
-                );
-                return genres.some((genre) => tempGenres.includes(genre));
-              })
-              .map((prodItem, idx) => (
-                <p>{prodItem.title}</p>
-              ))}
+            <div className="grid">
+              {products
+                .filter((productItem) => {
+                  const tempGenres = productItem.genres.map(
+                    (genre) => genre.name
+                  );
+                  return (
+                    genres.some((genre) => tempGenres.includes(genre)) &&
+                    productItem._id !== product._id
+                  );
+                })
+                .map((prodItem, idx) => (
+                  <ProductCard product={prodItem} />
+                ))}
+            </div>
           </section>
         </div>
       )}

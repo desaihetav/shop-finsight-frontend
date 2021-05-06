@@ -2,20 +2,20 @@ import styles from "./CartCard.module.css";
 import { useData } from "../../context/DataContext";
 
 export default function CartCard({ item }) {
-  const { title, description, authors, coverURL, price, quantity } = item;
+  const { name, description, authors, cover_url, price, discount, quantity } = item;
   const { dispatch } = useData();
   return (
     <div className={`card ${styles.card}`}>
-      <img alt="" src={coverURL} className={`${styles.cardImage}`} />
+      <img alt="" src={cover_url} className={`${styles.cardImage}`} />
 
       <div className="card-content">
         <p className="card-subtitle">{authors[0].name}</p>
-        <h3 className="card-title">{title}</h3>
+        <h3 className="card-title">{name}</h3>
         <div className="row"></div>
         <p className="card-description">{description}</p>
 
         <div className="row wrap w-full items-center">
-          <span className="card-title">Rs. {price.final * quantity}/-</span>
+          <span className="card-title">Rs. {parseFloat((price * (100 - discount) / 100) * quantity).toFixed(2)}/-</span>
           <div className="row ml-auto">
             <button
               onClick={() => dispatch({ type: "REMOVE_QTY", payload: item })}
