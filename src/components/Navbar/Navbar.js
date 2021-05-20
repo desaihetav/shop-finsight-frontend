@@ -68,6 +68,7 @@ export default function Navbar() {
 
 const LogoutModal = ({ setShowLogoutModal }) => {
   const { logout } = useAuth();
+  const { dispatch } = useData();
   return (
     <div className={`${styles.modalOuter}`}>
       <div className={`${styles.modalInner}`}>
@@ -83,6 +84,7 @@ const LogoutModal = ({ setShowLogoutModal }) => {
           <button
             onClick={() => {
               logout();
+              dispatch({ type: "LOGOUT" });
               setShowLogoutModal(false);
             }}
             className="btn btn-solid btn-small"

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { useData } from "./DataContext";
 
 const AuthContext = createContext(null);
 
@@ -66,8 +67,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    localStorage?.removeItem("authUser");
     setUser(null);
+    localStorage?.removeItem("authUser");
   };
 
   return (

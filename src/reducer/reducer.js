@@ -58,16 +58,12 @@ export const reducerFunc = (state, { type, payload }) => {
             cart: state.cart.filter((cartItem) => cartItem._id !== payload._id),
           };
     case "ADD_TO_WISHLIST":
-      console.log({ payload });
       console.log([...state.wishlist, payload]);
       return {
         ...state,
         wishlist: [...state.wishlist, payload],
       };
     case "REMOVE_FROM_WISHLIST":
-      console.log(
-        state.wishlist.filter((wishItem) => wishItem._id !== payload._id)
-      );
       return {
         ...state,
         wishlist: state.wishlist.filter(
@@ -89,6 +85,14 @@ export const reducerFunc = (state, { type, payload }) => {
       return {
         ...state,
         sortParameter: payload,
+      };
+    case "LOGOUT":
+      return {
+        ...state,
+        cart: [],
+        cartTotalOG: 0,
+        cartTotalFinal: 0,
+        wishlist: [],
       };
     default:
       return state;
