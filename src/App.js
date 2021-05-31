@@ -19,11 +19,7 @@ import { PrivateRoute } from "./api/PrivateRoute";
 function App() {
   return (
     <Router>
-      {/* <ScrollToTop /> */}
       <Routes>
-        {/* <Route path="/products">
-          <Products />
-        </Route> */}
         <div>
           <Navbar />
           <Routes>

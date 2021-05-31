@@ -24,11 +24,6 @@ export default function Navbar() {
       )}
       <div className="container row items-center">
         <Link to="/" className={`h-full ${styles.logoContainer}`}>
-          {/* <img
-            className={`${styles.logoImage}`}
-            alt="Finsight Logo"
-            src={logoWhite}
-          /> */}
           <span className={styles.logoText}>FINSIGHT</span>
         </Link>
         <div className="row ml-auto">
