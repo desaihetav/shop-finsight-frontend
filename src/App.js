@@ -1,9 +1,5 @@
 import "./App.css";
 import "./index.css";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
-import { useData, useAuth } from "./context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   Products,

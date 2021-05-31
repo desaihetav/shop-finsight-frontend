@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { useData } from "../../context/DataContext";
 import { useAuth } from "../../context";
@@ -23,9 +23,9 @@ export default function Navbar() {
         <LogoutModal setShowLogoutModal={setShowLogoutModal} />
       )}
       <div className="container row items-center">
-        <Link to="/" className={`h-full ${styles.logoContainer}`}>
+        <NavLink to="/" className={`h-full ${styles.logoContainer}`}>
           <span className={styles.logoText}>FINSIGHT</span>
-        </Link>
+        </NavLink>
         <div className="row ml-auto">
           <button
             onClick={authBtnHandler}
@@ -33,7 +33,7 @@ export default function Navbar() {
           >
             {user ? "Log Out" : "Log In"}
           </button>
-          <Link to="/wishlist">
+          <NavLink to="/wishlist">
             <div className="icon-badge-stack">
               <span className={`material-icons-outlined ${styles.navIcon}`}>
                 bookmark_border
@@ -42,10 +42,10 @@ export default function Navbar() {
                 {wishlist?.length}
               </div>
             </div>
-          </Link>
+          </NavLink>
           <div className="space-x-1"></div>
           <div className="space-x-1"></div>
-          <Link className="row" to="/cart">
+          <NavLink className="row" to="/cart">
             <div className="icon-badge-stack">
               <span
                 className={`material-icons-outlined ${styles.cartIcon} ${styles.navIcon}`}
@@ -54,7 +54,7 @@ export default function Navbar() {
               </span>
             </div>
             <div className={`${styles.iconBadge}`}>{cart?.length}</div>
-          </Link>
+          </NavLink>
         </div>
       </div>
     </div>

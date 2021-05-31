@@ -1,102 +1,37 @@
-export const reducerFunc = (state, { type, payload }) => {
-  switch (type) {
-    case "INITIALIZE_PRODUCTS":
-      return { ...state, products: payload };
-    case "INITIALIZE_CART":
-      const cartToSave = payload.map((payloadItem) => {
-        return { ...payloadItem.product, quantity: payloadItem.quantity };
-      });
-      return { ...state, cart: cartToSave };
-    case "INITIALIZE_WISHLIST":
-      const wishlistToSave = payload.map((payloadItem) => payloadItem.product);
-      return { ...state, wishlist: wishlistToSave };
-    case "ADD_TO_CART":
-      if (!state.cart.find((cartItem) => cartItem._id === payload._id)) {
-        return {
-          ...state,
-          cartTotalOG: state.cartTotalOG + payload.price,
-          cartTotalFinal:
-            state.cartTotalFinal +
-            (payload.price * (100 - payload.discount)) / 100,
-          cart: [...state.cart, { ...payload, quantity: 1 }],
-        };
-      }
-      return state;
-    case "ADD_QTY":
-      return {
-        ...state,
-        cartTotalOG: state.cartTotalOG + payload.price,
-        cartTotalFinal:
-          state.cartTotalFinal +
-          (payload.price * (100 - payload.discount)) / 100,
-        cart: state.cart.map((cartItem) =>
-          cartItem._id === payload._id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        ),
-      };
-    case "REMOVE_QTY":
-      return payload.quantity > 1
-        ? {
-            ...state,
-            cartTotalOG: state.cartTotalOG - payload.price,
-            cartTotalFinal:
-              state.cartTotalFinal -
-              (payload.price * (100 - payload.discount)) / 100,
-            cart: state.cart.map((cartItem) =>
-              cartItem._id === payload._id
-                ? { ...cartItem, quantity: cartItem.quantity - 1 }
-                : cartItem
-            ),
-          }
-        : {
-            ...state,
-            cartTotalOG: state.cartTotalOG - payload.price,
-            cartTotalFinal:
-              state.cartTotalFinal -
-              (payload.price * (100 - payload.discount)) / 100,
-            cart: state.cart.filter((cartItem) => cartItem._id !== payload._id),
-          };
-    case "ADD_TO_WISHLIST":
-      console.log([...state.wishlist, payload]);
-      return {
-        ...state,
-        wishlist: [...state.wishlist, payload],
-      };
-    case "REMOVE_FROM_WISHLIST":
-      return {
-        ...state,
-        wishlist: state.wishlist.filter(
-          (wishItem) => wishItem._id !== payload._id
-        ),
-      };
-    case "TOGGLE_COD":
-      return (state = {
-        ...state,
-        showCashOnDeliveryOnly: !state.showCashOnDeliveryOnly,
-      });
+import {
+  initializeProducts,
+  toggleCOD,
+  toggleFastDelivery,
+  sort,
+} from "./products";
 
-    case "TOGGLE_FAST_DELIVERY":
-      return (state = {
-        ...state,
-        showFastDeliveryOnly: !state.showFastDeliveryOnly,
-      });
-    case "SORT":
-      return {
-        ...state,
-        sortParameter: payload,
-      };
-    case "LOGOUT":
-      return {
-        ...state,
-        cart: [],
-        cartTotalOG: 0,
-        cartTotalFinal: 0,
-        wishlist: [],
-      };
-    default:
-      return state;
-  }
+import {
+  initializeWishlist,
+  addToWishlist,
+  removeFromWishlist,
+} from "./wishlist";
+
+import { initializeCart, addToCart, addQty, removeQty } from "./cart";
+
+import { logout } from "./user";
+
+const reducer = {
+  INITIALIZE_PRODUCTS: initializeProducts,
+  INITIALIZE_CART: initializeCart,
+  INITIALIZE_WISHLIST: initializeWishlist,
+  ADD_TO_CART: addToCart,
+  ADD_QTY: addQty,
+  REMOVE_QTY: removeQty,
+  ADD_TO_WISHLIST: addToWishlist,
+  REMOVE_FROM_WISHLIST: removeFromWishlist,
+  TOGGLE_COD: toggleCOD,
+  TOGGLE_FAST_DELIVERY: toggleFastDelivery,
+  SORT: sort,
+  LOGOUT: logout,
+};
+
+export const reducerFunc = (state, action) => {
+  return reducer[action.type](state, action);
 };
 
 export const initialState = {

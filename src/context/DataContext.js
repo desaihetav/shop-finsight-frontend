@@ -19,7 +19,9 @@ export function DataProvider({ children }) {
       );
       dispatch({
         type: "INITIALIZE_PRODUCTS",
-        payload: response.data.products,
+        payload: {
+          allProducts: response.data.products,
+        },
       });
     } catch (err) {
       console.log(err);
@@ -34,7 +36,9 @@ export function DataProvider({ children }) {
       console.log(responseCart.data.cart);
       dispatch({
         type: "INITIALIZE_CART",
-        payload: responseCart.data.cart,
+        payload: {
+          cart: responseCart.data.cart,
+        },
       });
 
       const responseWishlist = await axios.get(
@@ -44,7 +48,9 @@ export function DataProvider({ children }) {
 
       dispatch({
         type: "INITIALIZE_WISHLIST",
-        payload: responseWishlist.data.wishlist,
+        payload: {
+          wishlist: responseWishlist.data.wishlist,
+        },
       });
     } catch (error) {
       console.log(error);
