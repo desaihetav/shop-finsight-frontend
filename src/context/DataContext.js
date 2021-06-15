@@ -10,7 +10,7 @@ export const useData = () => useContext(DataContext);
 export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunc, initialState);
 
-  const { user } = useAuth();
+  const { user, token } = useAuth();
 
   const fetchData = async () => {
     try {
@@ -57,11 +57,13 @@ export function DataProvider({ children }) {
     }
   };
   useEffect(() => {
-    fetchUserData();
-  }, [user]);
+    console.log("fetching user data");
+    token && fetchUserData();
+  }, [user, token]);
 
   useEffect(() => {
     state.products.length === 0 && fetchData();
+    state.products.length === 0 && console.log("fetching products");
   }, []);
 
   return (
