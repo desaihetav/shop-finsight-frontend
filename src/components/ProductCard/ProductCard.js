@@ -22,6 +22,8 @@ export default function ProductCard({ product }) {
 
   const isInCart = cart?.find((cartItem) => cartItem._id === product._id);
 
+  console.log(product);
+
   const isInWishlist = () =>
     wishlist?.filter((wishItem) => wishItem._id === product._id).length;
   const toggleWishlist = async (e) => {

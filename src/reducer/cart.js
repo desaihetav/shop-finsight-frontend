@@ -47,7 +47,7 @@ export const removeQty = (state, { payload }) => {
 };
 
 const decrementQuantity = (state, payload) => {
-  state.cart.map((cartItem) =>
+  return state.cart.map((cartItem) =>
     cartItem._id === payload._id
       ? { ...cartItem, quantity: cartItem.quantity - 1 }
       : cartItem
@@ -55,5 +55,5 @@ const decrementQuantity = (state, payload) => {
 };
 
 const removeItem = (state, payload) => {
-  state.cart.filter((cartItem) => cartItem._id !== payload._id);
+  return state.cart.filter((cartItem) => cartItem._id !== payload._id);
 };
