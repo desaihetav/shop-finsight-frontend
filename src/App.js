@@ -10,7 +10,7 @@ import {
   Signup,
   Home,
 } from "./pages";
-import { Navbar } from "./components";
+import { Navbar, Footer } from "./components";
 import { PrivateRoute } from "./api/PrivateRoute";
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
             <Route path="/" element={<Products />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
           </Routes>
+          <Footer />
         </div>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
