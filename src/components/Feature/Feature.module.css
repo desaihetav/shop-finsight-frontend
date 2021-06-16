@@ -1,0 +1,80 @@
+.featureWrapper {
+  flex-direction: column-reverse;
+  background-color: var(--color-background-2);
+  margin: 2rem 0;
+}
+
+.featureContentWrapper {
+  width: 100%;
+  line-height: 1.25;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.featureContentTitle {
+  margin: 0;
+}
+
+.featureContentSubtitle {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.featureCTA {
+  align-self: flex-start;
+  margin-top: 2rem;
+}
+
+.arrowIcon {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: url("../../assets/images/right_arrow_light.svg") no-repeat center;
+  transition: transform 0.5s ease;
+}
+
+.button {
+  justify-content: space-around;
+  min-width: 18rem;
+  width: 100%;
+}
+
+.button:hover > .arrowIcon,
+.button:focus:hover > .arrowIcon {
+  transform: translateX(2rem);
+}
+
+.featureImageWrapper {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.featureImage {
+  max-width: 100%;
+  object-fit: cover;
+  max-height: 75vh;
+}
+
+@media screen and (min-width: 786px) {
+  .featureWrapper {
+    margin: 4rem 0;
+    flex-direction: row;
+  }
+
+  .rowReverse {
+    flex-direction: row-reverse;
+  }
+
+  .featureContentWrapper {
+    text-align: left;
+  }
+
+  .button {
+    width: fit-content;
+  }
+}

@@ -2,6 +2,10 @@ export const initializeProducts = (state, { payload }) => {
   return { ...state, products: payload.allProducts };
 };
 
+export const initializeGenres = (state, { payload }) => {
+  return { ...state, genres: payload.genres };
+};
+
 export const toggleCOD = (state) => {
   return {
     ...state,

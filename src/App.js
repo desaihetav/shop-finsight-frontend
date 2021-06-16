@@ -8,6 +8,7 @@ import {
   Wishlist,
   Login,
   Signup,
+  Home,
 } from "./pages";
 import { Navbar } from "./components";
 import { PrivateRoute } from "./api/PrivateRoute";
@@ -19,6 +20,7 @@ function App() {
         <div>
           <Navbar />
           <Routes>
+            <PrivateRoute path="/home" element={<Home />} />
             <PrivateRoute path="/cart" element={<Cart />} />
             <PrivateRoute path="/wishlist" element={<Wishlist />} />
             <Route path="/" element={<Products />} />

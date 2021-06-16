@@ -1,5 +1,6 @@
 import {
   initializeProducts,
+  initializeGenres,
   toggleCOD,
   toggleFastDelivery,
   sort,
@@ -17,6 +18,7 @@ import { logout } from "./user";
 
 const reducer = {
   INITIALIZE_PRODUCTS: initializeProducts,
+  INITIALIZE_GENRES: initializeGenres,
   INITIALIZE_CART: initializeCart,
   INITIALIZE_WISHLIST: initializeWishlist,
   ADD_TO_CART: addToCart,
@@ -36,6 +38,7 @@ export const reducerFunc = (state, action) => {
 
 export const initialState = {
   products: [],
+  genres: [],
   cart: [],
   cartTotalOG: 0,
   cartTotalFinal: 0,

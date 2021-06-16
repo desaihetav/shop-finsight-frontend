@@ -23,6 +23,16 @@ export function DataProvider({ children }) {
           allProducts: response.data.products,
         },
       });
+
+      const genresResponse = await axios.get(
+        "https://shop-finsight.desaihetav.repl.co/genres"
+      );
+      dispatch({
+        type: "INITIALIZE_GENRES",
+        payload: {
+          genres: genresResponse.data.genres,
+        },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -70,6 +80,7 @@ export function DataProvider({ children }) {
     <DataContext.Provider
       value={{
         products: state.products,
+        genres: state.genres,
         cart: state.cart,
         cartTotalOG: state.cartTotalOG,
         cartTotalFinal: state.cartTotalFinal,
