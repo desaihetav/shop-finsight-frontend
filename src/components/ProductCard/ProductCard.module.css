@@ -1,0 +1,34 @@
+.cardImage {
+  width: 100%;
+  height: 20rem;
+  max-width: 12.5rem;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 640px) {
+  .cardImage {
+    max-height: 14rem;
+    max-width: 8.75rem;
+  }
+}
+
+.arrowIcon {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: url("../../assets/images/right_arrow_light.svg") no-repeat center;
+}
+
+.arrowIcon,
+.bagIcon {
+  transition: transform 0.35s ease;
+}
+
+.button:hover > .bagIcon {
+  transform: translateY(-0.25rem);
+}
+
+.button:hover > .arrowIcon,
+.button:focus:hover > .arrowIcon {
+  transform: translateX(0.5rem);
+}

@@ -1,0 +1,136 @@
+section {
+  margin: 2rem 0;
+}
+
+.mainSection {
+  margin: 0;
+  min-height: calc(100vh - 4rem);
+  flex-direction: column;
+}
+
+.leftContainer {
+  background-color: var(--color-background-2);
+  padding: 4rem 0;
+}
+
+.rightContainer {
+}
+
+.coverImage {
+  width: 60%;
+}
+
+.title {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  margin: 1rem 0;
+}
+
+.author {
+  font-size: 1.25rem;
+  color: var(--color-text-2);
+}
+
+.priceFinal {
+  margin: 3rem 0;
+  font-size: 2.5rem;
+}
+.priceOriginal {
+  margin-left: 2rem;
+  font-size: 1.5rem;
+  color: var(--color-text-2);
+  text-decoration: line-through;
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 2rem;
+  color: var(--color-text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background-2);
+  padding: 1rem;
+}
+
+.metadata > div:first-child {
+  margin-bottom: 3rem;
+}
+
+.detailContainer {
+  margin: 1rem 1.5rem 1rem 0;
+}
+
+.detailTitle {
+  color: var(--color-text-2);
+}
+
+.detailSubtitle {
+  font-size: 1rem;
+}
+
+.button {
+  justify-content: space-evenly;
+}
+
+.arrowIcon {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: url("../../assets/images/right_arrow_light.svg") no-repeat center;
+}
+
+.arrowIcon,
+.bagIcon {
+  transition: transform 0.5s ease;
+}
+
+.button:hover > .bagIcon {
+  transform: translateY(-0.25rem);
+}
+
+.button:hover > .arrowIcon,
+.button:focus:hover > .arrowIcon {
+  transform: translateX(2rem);
+}
+
+.similarProducts {
+  padding: 2rem 0;
+}
+
+@media screen and (min-width: 786px) {
+  .mainSection {
+    min-height: calc(100vh - 4rem);
+    flex-direction: row;
+  }
+  .leftContainer {
+    margin-right: 2rem;
+  }
+  .rightContainer {
+    margin-left: 2rem;
+  }
+  .metadata {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+  }
+  .metadata > div:first-child {
+    margin-bottom: 0rem;
+  }
+  .metaLeft {
+    width: 45%;
+  }
+  .metaRight {
+    width: 45%;
+  }
+  .metaRightContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -1,0 +1,61 @@
+.navOuter {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  background-color: var(--color-text-1);
+  color: var(--color-background-3);
+}
+
+.logoContainer {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: max-content;
+}
+
+.logoImage {
+  max-height: 4rem;
+}
+
+.logoText {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.iconBadge {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.bookmarkBadge {
+  color: var(--color-text-1);
+}
+
+.navIcon {
+  margin-top: 0.5rem;
+  margin-right: 0.25rem;
+  font-size: 1.5rem;
+}
+
+.modalOuter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modalInner {
+  background-color: var(--color-background-2);
+  color: var(--color-text-1);
+  margin: 0 1rem;
+  padding: 1rem 2rem;
+  max-width: 40rem;
+}
