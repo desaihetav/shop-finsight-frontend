@@ -3,9 +3,10 @@ import { ProductCard } from "../../components";
 import { useData } from "../../context/DataContext";
 import styles from "./Products.module.css";
 
-export default function Products() {
+export default function Products({ genre }) {
   const {
     products,
+    genres: allGenres,
     showFastDeliveryOnly,
     showCashOnDeliveryOnly,
     sortParameter,
@@ -13,6 +14,8 @@ export default function Products() {
   } = useData();
 
   const [showFilters, setShowFilters] = useState(false);
+
+  const currentGenre = allGenres.find((genreItem) => genreItem.slug === genre);
 
   function getSortedData(products, sortParameter) {
     console.log({ sortParameter });
@@ -40,7 +43,12 @@ export default function Products() {
     products,
     { showFastDeliveryOnly, showCashOnDeliveryOnly }
   ) {
-    return products
+    const genreFiltered = genre
+      ? products.filter(({ genres }) =>
+          genres.some((genreItem) => genreItem.slug === genre)
+        )
+      : products;
+    return genreFiltered
       .filter(({ has_fast_delivery }) =>
         showFastDeliveryOnly ? has_fast_delivery : true
       )
@@ -62,7 +70,12 @@ export default function Products() {
       {products && (
         <div className="container">
           <div className="row items-center justify-between">
-            <h1 className="mt-8">All Products</h1>
+            <div className="mt-8">
+              {genre && <p>Books In</p>}
+              <h1 className="mt-0">
+                {genre ? currentGenre.name : "All Books"}
+              </h1>
+            </div>
             <button
               className="btn btn-icon btn-ghost btn-small"
               onClick={() => toggleShowFilter()}

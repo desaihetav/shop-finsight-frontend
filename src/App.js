@@ -5,6 +5,7 @@ import {
   Products,
   ProductDetails,
   Cart,
+  Genre,
   Wishlist,
   Login,
   Signup,
@@ -20,11 +21,12 @@ function App() {
         <div>
           <Navbar />
           <Routes>
-            <PrivateRoute path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <PrivateRoute path="/cart" element={<Cart />} />
             <PrivateRoute path="/wishlist" element={<Wishlist />} />
-            <Route path="/" element={<Products />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/genre/:slug" element={<Genre />} />
           </Routes>
           <Footer />
         </div>

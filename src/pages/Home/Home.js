@@ -8,7 +8,7 @@ export default function Home() {
         title="Discover the best finance content through timeless books by top authors"
         subtitle="Thoughtfully curated collection to help you get started with your personal finance journey."
         ctaText="Get Started"
-        ctaLink={`/`}
+        ctaLink={`/products`}
         imageURL="/images/hero.png"
       />
       <GenreGrid />
